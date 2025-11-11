@@ -8,10 +8,11 @@
     <title>{{$title}}</title>
 </head>
 <body class="bg-cyan-100">
-
     
-    <main> {{ $slot }} </main>
-
+    <div class="flex flex-col md:flex-row">
+        <x-partials.sidebar></x-partials.sidebar>
+        <main class="w-full"> {{ $slot }} </main>
+    </div>
     
 </body>
 </html>
