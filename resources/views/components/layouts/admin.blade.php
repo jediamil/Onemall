@@ -9,9 +9,11 @@
 </head>
 <body class="bg-cyan-100">
 
-    <x-partials.header> </x-partials.header>
+<x-partials.header> </x-partials.header>
     
-    <main> {{ $slot }} </main>
+    <main> 
+    {{ $slot }} 
+    </main>
 
     
 </body>
