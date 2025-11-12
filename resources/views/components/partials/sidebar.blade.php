@@ -41,19 +41,12 @@
         Settings
     </a>
 
-    <a href="#" 
-        class="flex items-center px-4 py-3 text-teal-700 hover:bg-cyan-200 rounded-l-3xl">
-        <span class="material-symbols-outlined mr-3">chip_extraction</span>
-        Logout
-    </a>
+    <form action="{{ route('logout') }}" method="POST" class="inline">
+        @csrf
+        <button type="submit" class="cursor-pointer w-full text-teal-700 hover:bg-cyan-200 rounded-l-3xl flex items-center px-4 py-3">
+            <span class="material-symbols-outlined mr-3">chip_extraction</span>
+            Logout
+        </button>
+    </form>
     </div>
 </nav>
-
-<!-- Toggle Script -->
-<script>
-  const menuBtn = document.getElementById('menuBtn');
-  const menu = document.getElementById('menu');
-  menuBtn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-  });
-</script>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\FirebaseModel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(FirebaseModel::class, function () {
+            return new FirebaseModel();
+        });
     }
 
     /**

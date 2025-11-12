@@ -8,38 +8,49 @@
         <hr class="w-24 border-t-4 border-teal-400/70 mt-2 rounded">
     </div>
 
-    <form action="POST" class="w-full  max-w-7xl rounded-2xl">
+    <form action="{{ route('login.submit') }}" method="POST" class="w-full  max-w-7xl rounded-2xl">
+        @csrf
         <div class="flex flex-col gap-6">
-        <!-- Username Field -->
-        <div class="flex items-center border-b-2 border-teal-600/60 focus-within:border-teal-300">
-            <span class="material-symbols-outlined text-gray-400 mr-2">mail</span>
-            <input 
-            type="text" 
-            placeholder="Enter your username" 
-            class="w-full bg-transparent outline-none py-3 text-gray-700 placeholder-gray-400"
-            >
-        </div>
 
-        <!-- Password Field -->
-        <div class="flex flex-col gap-3">
+            @if ($errors->any())
+                <div class="text-red-500 text-sm mb-3">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+            
+            <!-- Username Field -->
             <div class="flex items-center border-b-2 border-teal-600/60 focus-within:border-teal-300">
-            <span class="material-symbols-outlined text-gray-400 mr-2">lock</span>
-            <input 
+                <span class="material-symbols-outlined text-gray-400 mr-2">mail</span>
+                <input 
+                type="text" 
+                name="email" 
+                placeholder="Enter your username" 
+                class="w-full bg-transparent outline-none py-3 text-gray-700 placeholder-gray-400"
+            />
+            </div>
+
+            <!-- Password Field -->
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center border-b-2 border-teal-600/60 focus-within:border-teal-300">
+                <span class="material-symbols-outlined text-gray-400 mr-2">lock</span>
+                <input 
                 type="password" 
+                name="password" 
                 placeholder="Enter your password" 
                 class="w-full bg-transparent outline-none py-3 text-gray-700 placeholder-gray-400"
-            >
+            />
             </div>  
-            <a href="#" class="text-teal-500 text-sm text-right hover:underline">Forgot password?</a>
-        </div>
 
-        <!-- Submit Button -->
-        <button 
-            type="submit" 
-            class="cursor-pointer w-full bg-teal-600/80 text-white text-lg font-semibold py-3 rounded-lg hover:bg-teal-500 transition duration-200"
-        >
-            Login
-        </button>
+            <a href="#" class="text-teal-500 text-sm text-right hover:underline">Forgot password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                class="cursor-pointer w-full bg-teal-600/80 text-white text-lg font-semibold py-3 rounded-lg hover:bg-teal-500 transition duration-200"
+            >
+                Login
+            </button>
         </div>
     </form>
 </div>
