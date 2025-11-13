@@ -36,7 +36,23 @@ Route::get('vendor-management', function () {
 });
 
 Route::get('settings', function () {
-    return view('components.pages.settings');
+    return view('components.pages.settings.settings');
+});
+
+Route::get('settings/system-maintenance', function () {
+    return view('components.pages.settings.system-settings');
+});
+
+Route::get('settings/backup', function () {
+    return view('components.pages.settings.backup-settings');
+});
+
+Route::get('settings/transaction', function () {
+    return view('components.pages.settings.transaction-settings');
+});
+
+Route::get('settings/rewards', function () {
+    return view('components.pages.settings.rewards-settings');
 });
 
 
