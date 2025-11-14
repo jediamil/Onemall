@@ -8,7 +8,7 @@
                     {{ session('error') }}
                 </div>
             @endif
-            Welcome to dashboard, <p>Your UID: {{ session('user_uid') }}</p> <p>Your name: {{ session('account_name') }}</p> <p>Your role: {{ session('user_role') }}</p>
+            Welcome to dashboard, <p>Your UID: {{ session('user_uid') }}</p> <p>Your name: {{ session('vendor_name') }}</p> <p>Your role: {{ session('role') }}</p>
         </div>
     </div>
 
