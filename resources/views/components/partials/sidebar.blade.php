@@ -1,5 +1,5 @@
 <!-- Responsive Sidebar Navigation -->
-<nav class="bg-cyan-100 min-h-[90%] flex flex-col md:w-72 w-full transition-all duration-300 mt-0 md:mt-17 ml-0 md:ml-4 ">
+<nav class="bg-cyan-100 min-h-[90%] flex flex-col md:w-72 w-full transition-all duration-300 mt-0 ml-0 md:ml-4 ">
   <!-- Header / Logo -->
   <div class="flex items-center justify-between p-4 md:p-0 md:pl-7 border-b border-cyan-200">
     <div class="w-25 md:w-40">

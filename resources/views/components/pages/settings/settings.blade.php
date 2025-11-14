@@ -1,7 +1,7 @@
 <x-layouts.app title="Settings"> 
     
-    <div class="flex justify-center items-start md:items-center h-screen w-full">
-        <div class="w-full bg-black/20 p-4 m-4 md:m-0 md:p-10 md:mr-10 rounded-3xl h-[82vh]">
+    <div class="flex justify-center items-start md:items-center w-full">
+        <div class="w-full bg-black/20 p-4 m-4 md:m-0 md:p-10 md:mr-10 rounded-3xl min-h-[84vh]">
             <x-partials.admin-header title="Admin settings" />
             <x-partials.settings />
         </div>

@@ -9,9 +9,12 @@
 </head>
 <body class="bg-cyan-100">
     
+    <div class="p-0 md:p-5">
+
+    </div>
     <div class="flex flex-col md:flex-row">
         <x-partials.sidebar></x-partials.sidebar>
-        <main class="w-full"> {{ $slot }} </main>
+        <main class="w-full pb-10"> {{ $slot }} </main>
     </div>
     
 </body>
