@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminDashboard;
+use App\Http\Controllers\VendorRegistration;
 use App\Models\FirebaseModel;
 
 // Handle login user interface
@@ -12,12 +13,23 @@ Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middl
 // Handle login submission
 Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
 
+// // Handle login submission
+// Route::match(['get', 'post'], '/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('register.submit');
+
+Route::post('/vendor-management/registration', 
+    [VendorRegistration::class, 'vendorCreate']
+)->name('vendor.register.submit');
+
 // Handle logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
+});
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
 });
 
 
@@ -31,9 +43,6 @@ Route::get('account-management', function () {
     return view('components.pages.account-management');
 });
 
-Route::get('vendor-management', function () {
-    return view('components.pages.vendor-management');
-});
 
 Route::get('settings', function () {
     return view('components.pages.settings.settings');

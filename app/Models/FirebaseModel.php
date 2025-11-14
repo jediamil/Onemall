@@ -13,7 +13,7 @@ class FirebaseModel
 
     public function __construct()
     {
-        $this->factory = (new Factory)->withServiceAccount(base_path(env('FIREBASE_CREDENTIALS')));
+        $this->factory = (new Factory)->withServiceAccount(base_path('storage/app/private/tapeat-merchant-firebase-adminsdk-fbsvc-83575b8d8b.json'));
     }
 
     public function getFirestore()

@@ -18,8 +18,8 @@
         public function registerUser(string $email, string $password) {
             try {
                 $user = $this->getAuth()->createUser([
-                    'email' => '$email',
-                    'password' => '$password',
+                    'email' => $email,
+                    'password' => $password,
                 ]);
                 return $user; //  Returns Firebase User object
             } catch (\Kreait\Firebase\Exception\AuthException $e) {

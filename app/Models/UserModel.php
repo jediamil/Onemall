@@ -4,7 +4,7 @@ namespace App\Models;
 
 class UserModel extends FirebaseModel
 {
-    private string $collection = 'users';
+    protected string $collection = 'vendors';
 
     /**
      * Create a new user document with auto-generated ID
