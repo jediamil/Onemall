@@ -7,7 +7,7 @@ use App\Http\Controllers\VendorRegistration;
 use App\Models\FirebaseModel;
 
 // Handle login user interface
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware('logged_in');
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 
 
 // Handle login submission
@@ -27,6 +27,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 });
+
 
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');

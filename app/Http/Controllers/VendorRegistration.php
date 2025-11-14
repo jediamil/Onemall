@@ -8,11 +8,11 @@ use App\Models\UserModel;
 class VendorRegistration extends Controller 
 {
     protected UserModel $userModel;
-    protected UserAuthModel $authModel;
+    protected UserAuthModel $userAuthModel;
 
     public function __construct()
     {
-        $this->authModel = new UserAuthModel();
+        $this->userAuthModel = new UserAuthModel();
         $this->userModel = new UserModel();
     }
 
@@ -41,13 +41,7 @@ class VendorRegistration extends Controller
 
 
             // Register authentication data
-            $user = $this->authModel->registerUser($email, $password);
-
-            // if (!$user) {
-            //     return back()->withErrors([
-            //         'email' => 'Failed to register'
-            //     ])->withInput();
-            // }
+            $user = $this->userAuthModel->registerUser($email, $password);
 
             if (!$user) {
                 try {
@@ -65,18 +59,19 @@ class VendorRegistration extends Controller
                 }
             }
 
-            // Store Firebase UID in session
             $data = [
-                // 'vendor_name' => $validated['vendor_name'],
-                // 'food_stall' => $validated['food_stall'],
-                // 'email' => $email,
-                'firebase_uid' => $user->uid,
-                // 'created_at' => now(),
+                'vendor_name'   => (string) $validated['vendor_name'],
+                'food_stall'    => (string) $validated['food_stall'],
+                'email'         => (string) $email,
+                'role'          => (string) 'Vendor',
+                'firebase_uid'  => (string) $user->uid,           
+                'created_at'    => now()->toDateTimeString(),      
             ];
+            
             session(['vendor_uid' => $data['firebase_uid']]);
 
             // Create vendor record
-            $vendor = $this->userModel->createUser($data);
+            $vendor = $this->userModel->createUser($data['firebase_uid'], $data);
 
             if ($vendor) {
                 return redirect()

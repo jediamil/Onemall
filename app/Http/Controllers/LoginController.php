@@ -3,15 +3,15 @@
     use App\Models\UserAuthModel;
     use Illuminate\Http\Request;
     use App\Models\FirebaseModel;
+    use App\Models\UserModel;
 
     class LoginController extends Controller {
-        protected UserAuthModel $authModel;
-        protected $firebase;
+        protected UserAuthModel $userAuthModel;
+        protected UserModel $userModel;
 
-            public function __construct(FirebaseModel $firebase)
-        {
-            $this->authModel = new UserAuthModel();
-            $this->firebase = $firebase;
+        public function __construct() {
+            $this->userAuthModel = new UserAuthModel();
+            $this->userModel = new UserModel();
         }
 
         //  SHOW THE USER INTERFACE
@@ -21,8 +21,7 @@
         
 
         // LOGIN REQUEST
-        public function login(Request $request)
-        {
+        public function login(Request $request) {
             // Validate request method
             if ($request->isMethod('get')) {
                 return redirect()->route('login');
@@ -38,9 +37,9 @@
             $password = trim($request->password);
 
             // Attempt to login via Firebase
-            $user = $this->authModel->login($email, $password);
+            $user = $this->userAuthModel->login($email, $password);
 
-            if ($user === null) {
+            if (!$user) {
                 // Login failed — redirect back with an error message
                 return back()->withErrors([
                     'email' => 'Incorrect email or password'
@@ -50,28 +49,20 @@
             // Login successful — store Firebase UID in session
             session(['user_uid' => $user->firebaseUserId()]);
             $uid = session('user_uid');
+            $getUser = $this->userModel->getUser($uid);
 
-        
-            // ✅ Use cached name if available
-            if (!session()->has('account_name')) {
-                try {
-                    $firestore = $this->firebase->getFirestore();
-                    $userDoc = $firestore->collection('users')->document($uid)->snapshot();
+            session([
+                'vendor_name' => $getUser['vendor_name'],
+                'food_stall' => $getUser['food_stall'],
+                'role' => $getUser['role'],
+                'email' => $getUser['email'],
+                'created_at' => $getUser['created_at'],
+            ]);
 
-                    // Get user data safely
-                    $accountName = $userDoc->get('Account') ?? 'Guest user';
-
-                    // Store in session
-                    session(['account_name' => $accountName]);
-
-                } catch (\Throwable $e) {
-                    logger()->error('Firestore role verification failed: ' . $e->getMessage());
-                    return redirect()->route('login')->with('error', 'Unable to verify user role.');
-                }
-            }
             // Redirect to intended page
             return redirect()->intended('dashboard');
         }
+
 
         // LOG OUT REQUEST
         public function logout(Request $request)

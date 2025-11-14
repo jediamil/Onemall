@@ -7,28 +7,34 @@ use Kreait\Firebase\Auth as FirebaseAuth;
 
 class FirebaseModel
 {
-    protected $factory;
-    protected $firestore;
-    protected $auth;
+    // Singleton instances
+    protected static ?Factory $factory = null;
+    protected static $firestore = null;
+    protected static ?FirebaseAuth $auth = null;
 
     public function __construct()
     {
-        $this->factory = (new Factory)->withServiceAccount(base_path('storage/app/private/tapeat-merchant-firebase-adminsdk-fbsvc-83575b8d8b.json'));
+        if (!self::$factory) {
+            self::$factory = (new Factory)
+                ->withServiceAccount(base_path('storage/app/private/tapeat-merchant-firebase-adminsdk-fbsvc-83575b8d8b.json'));
+        }
+
+        if (!self::$firestore) {
+            self::$firestore = self::$factory->createFirestore()->database();
+        }
+
+        if (!self::$auth) {
+            self::$auth = self::$factory->createAuth();
+        }
     }
 
     public function getFirestore()
     {
-        if (!$this->firestore) {
-            $this->firestore = $this->factory->createFirestore()->database();
-        }
-        return $this->firestore;
+        return self::$firestore;
     }
 
     public function getAuth(): FirebaseAuth
     {
-        if (!$this->auth) {
-            $this->auth = $this->factory->createAuth();
-        }
-        return $this->auth;
+        return self::$auth;
     }
 }

@@ -4,15 +4,15 @@ namespace App\Models;
 
 class UserModel extends FirebaseModel
 {
-    protected string $collection = 'vendors';
+    protected string $collection = 'users';
 
     /**
      * Create a new user document with auto-generated ID
      */
-    public function createUser(array $data)
+    public function createUser(string $uid, array $data)
     {
-        $docRef = $this->getFirestore()->collection($this->collection)->add($data);
-        return $docRef->id(); // Returns the generated document ID
+        $docRef = $this->getFirestore()->collection($this->collection)->document($uid)->set($data, ['merge' => true]);
+        return $uid; // Returns the document ID
     }
 
     /**
@@ -33,9 +33,12 @@ class UserModel extends FirebaseModel
      */
     public function getUser(string $id): ?array
     {
+        // dd($id);
         $doc = $this->getFirestore()->collection($this->collection)->document($id)->snapshot();
         return $doc->exists() ? $doc->data() : null;
     }
+
+
 
     /**
      * Update a user by document ID
