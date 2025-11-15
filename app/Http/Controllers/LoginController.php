@@ -16,6 +16,11 @@
 
         //  SHOW THE USER INTERFACE
         public function showLoginForm() {
+            
+            if (session('user_uid')) {
+                return redirect()->route('admin.dashboard');
+            }
+
             return view('components.pages.admin');
         }
         

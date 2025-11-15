@@ -27,15 +27,9 @@ class RoleMiddleware
 
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-            // Skip login/logout/public pages
+        // Skip login/logout/public pages
         if ($request->routeIs('login') || $request->routeIs('login.submit') || $request->routeIs('logout')) {
             return $next($request);
-        }
-
-        $uid = session('user_uid');
-
-        if (!$uid) {
-            return redirect()->route('login');
         }
 
         $role = session('role');

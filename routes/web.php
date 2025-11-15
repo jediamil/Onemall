@@ -32,11 +32,11 @@ Route::middleware(['role:Admin'])->group(function () {
 
 // Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     
 Route::middleware(['role:Vendor'])->group(function () {
-    Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
+Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 });
 
 

@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Register your middleware alias
             $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
-            'logged_in' => \App\Http\Middleware\LoggedInMiddleware::class,
+            // 'logged_in' => \App\Http\Middleware\LoggedInMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -27,13 +27,13 @@ class LoggedInMiddleware
 
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // Get the UID from session (assuming you store it after Firebase login)
-        $uid = session('user_uid');
+        // // Get the UID from session (assuming you store it after Firebase login)
+        // $uid = session('user_uid');
 
-        // 1️⃣ If user is logged in and trying to access the login route, redirect them
-        if ($uid && $request->routeIs('login')) {
-            return redirect()->route('admin.dashboard');
-        }
+        // // 1️⃣ If user is logged in and trying to access the login route, redirect them
+        // if ($uid && $request->routeIs('login')) {
+        //     return redirect()->route('admin.dashboard');
+        // }
 
         return $next($request);
     }
