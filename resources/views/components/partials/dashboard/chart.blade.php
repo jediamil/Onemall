@@ -60,28 +60,6 @@
     </div>
 </div> --}}
 
-<?php 
-
-$weeklySales = [
-    ['day' => 'Mon', 'value' => 60, 'revenue' => 1200],
-    ['day' => 'Tue', 'value' => 45, 'revenue' => 900],
-    ['day' => 'Wed', 'value' => 75, 'revenue' => 1500],
-    ['day' => 'Thu', 'value' => 85, 'revenue' => 1700],
-    ['day' => 'Fri', 'value' => 65, 'revenue' => 1300],
-    ['day' => 'Sat', 'value' => 90, 'revenue' => 1800],
-    ['day' => 'Sun', 'value' => 70, 'revenue' => 1400],
-];
-
-
-// Calculate total revenue
-$totalRevenue = array_sum(array_column($weeklySales, 'revenue'));
-
-// Example growth percent (compared to last week)
-$lastWeekRevenue = 10000; // replace with your actual last week total
-$growthPercent = round((($totalRevenue - $lastWeekRevenue) / $lastWeekRevenue) * 100, 1);
-
-?>
-
 <div class="bg-gray-100 rounded-xl shadow-sm p-6">
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-lg font-semibold text-gray-900">Sales Overview</h3>

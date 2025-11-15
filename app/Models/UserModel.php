@@ -37,6 +37,25 @@ class UserModel extends FirebaseModel
         return $doc->exists() ? $doc->data() : null;
     }
 
+    // public function getUser(string $id): ?array
+    // {
+    //     // Simple recursion protection
+    //     static $depth = 0;
+    //     $depth++;
+        
+    //     if ($depth > 5) {
+    //         throw new \Exception('Recursion detected: getUser method called too many times');
+    //     }
+        
+    //     try {
+    //         $doc = $this->getFirestore()->collection($this->collection)->document($id)->snapshot();
+    //         return $doc->exists() ? $doc->data() : null;
+    //     } finally {
+    //         $depth--;
+    //     }
+    // }
+
+
     /**
      * Update a user by document ID
      */
