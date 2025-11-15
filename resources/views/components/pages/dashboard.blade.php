@@ -5,13 +5,6 @@
             <x-partials.admin-header title="Dashboard" />
 
             <x-partials.dashboard.dashboard />
-
-
-
-
-
-
-            <h1 class="text-6xl text-red-700 font-bold">TEST FOR FETCH AND PULL TO GET UPDATE</h1>
         </div>
     </div>
 
