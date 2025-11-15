@@ -1,4 +1,4 @@
-<div class="flex justify-center max-w-full bg-gray-100 shadow-lg border border-gray-100 rounded-xl">
+<div class="flex justify-start max-w-full bg-cyan-100 border border-teal-100 rounded-xl">
     <form action="{{ route('vendor.register.submit') }}" method="POST" class="w-full max-w-2xl py-15 px-8">
         @csrf
 

@@ -3,7 +3,7 @@
         <h2 class="text-3xl font-semibold text-gray-800">{{ $title }}</h2>
         <p class="text-gray-500 text-sm mt-1">Manage your {{ $title }}</p>
     </div>
-    <div class="flex items-center space-x-4 rounded-xl shadow-sm px-4 py-2 border border-gray-50/50">
+    <div class="flex items-center space-x-4 rounded-xl px-4 py-2">
         <!-- Name -->
         <div class="text-right">
             <p class="text-gray-800 font-medium">

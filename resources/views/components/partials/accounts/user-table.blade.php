@@ -1,6 +1,6 @@
 @props(['users' => []])
 <div class="overflow-x-auto rounded-lg shadow-sm">
-    <table class="min-w-full bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+    <table class="min-w-full bg-cyan-100 rounded-lg overflow-hidden border border-gray-200">
         <thead class="bg-linear-to-r from-teal-500 to-teal-600 text-white">
             <tr>
                 <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Vendor Name</th>

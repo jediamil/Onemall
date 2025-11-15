@@ -5,7 +5,7 @@
 
     class AdminDashboard extends Controller {
     //  Show the Admin Dashboard
-        public function showAdminDashboard(): string {
+        public function showAdminDashboard() {
             return view('components.pages.dashboard');
         }
     }
