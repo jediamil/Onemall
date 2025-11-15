@@ -7,7 +7,8 @@ use App\Http\Controllers\VendorRegistration;
 use App\Models\FirebaseModel;
 
 // Handle login user interface
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
 
 
 // Handle login submission
@@ -16,20 +17,19 @@ Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 
 // // Handle login submission
 // Route::match(['get', 'post'], '/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('register.submit');
 
-Route::post('/vendor-management/registration', 
-    [VendorRegistration::class, 'vendorCreate']
-)->name('vendor.register.submit');
+Route::post('/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('vendor.register.submit');
 
 // Handle logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::middleware(['role:admin'])->group(function () {
+Route::middleware(['role:Vendor'])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 });
 
+// Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 
-Route::middleware(['role:admin'])->group(function () {
+Route::middleware(['role:Vendor'])->group(function () {
     Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
 });
 
@@ -68,6 +68,10 @@ Route::get('settings/rewards', function () {
 
 Route::get('/test-firebase', function () {
     try {
+        // dd(session(['vendor_name']));
+        // dd(session(['role']));
+        // dd(session(['user_id']));
+        
         $firebase = new FirebaseModel();
         $firestore = $firebase->getFirestore();
 

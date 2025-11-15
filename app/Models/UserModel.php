@@ -38,8 +38,6 @@ class UserModel extends FirebaseModel
         return $doc->exists() ? $doc->data() : null;
     }
 
-
-
     /**
      * Update a user by document ID
      */

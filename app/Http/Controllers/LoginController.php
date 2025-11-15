@@ -15,13 +15,12 @@
         }
 
         //  SHOW THE USER INTERFACE
-        public function showLoginForm(): string {
+        public function showLoginForm() {
             return view('components.pages.admin');
         }
         
-
         // LOGIN REQUEST
-        public function login(Request $request) {
+        public function login(Request $request): \Illuminate\Http\RedirectResponse {
             // Validate request method
             if ($request->isMethod('get')) {
                 return redirect()->route('login');
@@ -33,8 +32,8 @@
                 'password' => 'required|string|min:6',
             ]);
 
-            $email = trim($request->email);
-            $password = trim($request->password);
+            $email = trim($request->input('email'));
+            $password = trim($request->input('password'));
 
             // Attempt to login via Firebase
             $user = $this->userAuthModel->login($email, $password);
@@ -46,19 +45,25 @@
                 ])->withInput(); // keeps the email field populated
             }
 
-            // Login successful — store Firebase UID in session
-            session(['user_uid' => $user->firebaseUserId()]);
-            $uid = session('user_uid');
-            $getUser = $this->userModel->getUser($uid);
+            // Attempt to get the current user from firestore
+            $getUser = $this->userModel->getUser($user->firebaseUserId());
 
+            // If UID of current user does not found, return redirection
+            if (!$getUser) {
+                return redirect()->route('login')->with('error', 'Invalid credentials or user not found.');
+            }
+
+            // If successfully found the user in firestore, saved data in session
             session([
                 'vendor_name' => $getUser['vendor_name'],
                 'food_stall' => $getUser['food_stall'],
                 'role' => $getUser['role'],
                 'email' => $getUser['email'],
                 'created_at' => $getUser['created_at'],
+                'user_uid' => $user->firebaseUserId(),
             ]);
 
+            
             // Redirect to intended page
             return redirect()->intended('dashboard');
         }
@@ -68,7 +73,8 @@
         public function logout(Request $request)
         {
             // Clear the Firebase user from session
-            $request->session()->forget('user_uid');
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             // Optional: clear all session data
             // $request->session()->flush();

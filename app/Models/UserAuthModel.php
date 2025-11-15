@@ -9,8 +9,8 @@
             try {
                 // Attempt to sign in
                 return $this->getAuth()->signInWithEmailAndPassword($email, $password);
-            } catch (FailedToSignIn $e) {
-                // Login failed, return null instead of letting the exception crash the app
+            } catch (FailedToSignIn|AuthException $e) {
+                error_log("Failed login attempt for $email: " . $e->getMessage());
                 return null;
             }
         }
@@ -27,12 +27,11 @@
             }
         }
 
-        public function verifyIdToken(string $idToken)
-    {
-        try {
-            return $this->getAuth()->verifyIdToken($idToken);
-        } catch (\Kreait\Firebase\Exception\Auth\FailedToVerifyToken $e) {
-            return null;
-        }
-    }
+        // public function verifyIdToken(string $idToken)
+        // {
+        // try {
+        //     return $this->getAuth()->verifyIdToken($idToken);
+        // } catch (\Kreait\Firebase\Exception\Auth\FailedToVerifyToken $e) {
+        //     return null;
+        // }
     }

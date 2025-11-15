@@ -27,9 +27,17 @@ class RoleMiddleware
 
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        
         $uid = session('user_uid');
 
+        if (!$uid) {
+            return redirect()->route('login');
+        }
+
+        $role = session('role');
+
+        if (!in_array($role, $roles)) {
+            abort(403, 'Unauthorized');
+        }
 
         return $next($request);
     }
