@@ -35,7 +35,7 @@ class RoleMiddleware
 
         $role = session('role');
 
-        if (!in_array($role, $roles)) {
+        if ($role !== 'Admin' && !in_array($role, $roles)) {
             abort(403, 'Unauthorized');
         }
 

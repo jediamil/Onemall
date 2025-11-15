@@ -4,33 +4,36 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\VendorRegistration;
+use App\Http\Controllers\AccountManagement;
 use App\Models\FirebaseModel;
 
-// Handle login user interface
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
+
 
 
 // Handle login submission
 Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
+
+// Handle logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // // Handle login submission
 // Route::match(['get', 'post'], '/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('register.submit');
 
 Route::post('/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('vendor.register.submit');
 
-// Handle logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-Route::middleware(['role:Vendor'])->group(function () {
-    Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
+Route::middleware(['role:Admin'])->group(function () {
+    Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');
+    Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
 });
 
 // Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
+
 Route::middleware(['role:Vendor'])->group(function () {
-    Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
+    Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 });
 
 
@@ -40,9 +43,6 @@ Route::middleware(['role:Vendor'])->group(function () {
 
 
 
-Route::get('account-management', function () {
-    return view('components.pages.account-management');
-});
 
 
 Route::get('settings', function () {

@@ -33,7 +33,6 @@ class UserModel extends FirebaseModel
      */
     public function getUser(string $id): ?array
     {
-        // dd($id);
         $doc = $this->getFirestore()->collection($this->collection)->document($id)->snapshot();
         return $doc->exists() ? $doc->data() : null;
     }
