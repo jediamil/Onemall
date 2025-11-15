@@ -1,90 +1,81 @@
-<?php   
-    namespace App\Http\Controllers;
-    use App\Models\UserAuthModel;
-    use Illuminate\Http\Request;
-    use App\Models\FirebaseModel;
-    use App\Models\UserModel;
+<?php
 
-    class LoginController extends Controller {
-        protected UserAuthModel $userAuthModel;
-        protected UserModel $userModel;
+namespace App\Http\Controllers;
 
-        public function __construct() {
-            $this->userAuthModel = new UserAuthModel();
-            $this->userModel = new UserModel();
+use App\Models\UserAuthModel;
+use App\Models\UserModel;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+class LoginController extends Controller
+{
+    public function __construct(
+        protected UserAuthModel $userAuthModel,
+        protected UserModel $userModel
+    ) {}
+
+    public function showLoginForm(): View|RedirectResponse
+    {
+        if (session('user_uid')) {
+            return redirect()->route('admin.dashboard');
         }
 
-        //  SHOW THE USER INTERFACE
-        public function showLoginForm() {
-            
-            if (session('user_uid')) {
-                return redirect()->route('admin.dashboard');
-            }
-
-            return view('components.pages.admin');
-        }
-        
-        // LOGIN REQUEST
-        public function login(Request $request): \Illuminate\Http\RedirectResponse {
-            // Validate request method
-            if ($request->isMethod('get')) {
-                return redirect()->route('login');
-            }
-
-            // Validate the request
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|string|min:6',
-            ]);
-
-            $email = trim($request->input('email'));
-            $password = trim($request->input('password'));
-
-            // Attempt to login via Firebase
-            $user = $this->userAuthModel->login($email, $password);
-
-            if (!$user) {
-                // Login failed — redirect back with an error message
-                return back()->withErrors([
-                    'email' => 'Incorrect email or password'
-                ])->withInput(); // keeps the email field populated
-            }
-
-            // Attempt to get the current user from firestore
-            $getUser = $this->userModel->getUser($user->firebaseUserId());
-
-            // If UID of current user does not found, return redirection
-            if (!$getUser) {
-                return redirect()->route('login')->with('error', 'Invalid credentials or user not found.');
-            }
-
-            // If successfully found the user in firestore, saved data in session
-            session([
-                'vendor_name' => $getUser['vendor_name'],
-                'food_stall' => $getUser['food_stall'],
-                'role' => $getUser['role'],
-                'email' => $getUser['email'],
-                'created_at' => $getUser['created_at'],
-                'user_uid' => $user->firebaseUserId(),
-            ]);
-
-            
-            // Redirect to intended page
-            return redirect()->intended('dashboard');
-        }
-
-
-        // LOG OUT REQUEST
-        public function logout(Request $request)
-        {
-            // Clear the Firebase user from session
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            // Optional: clear all session data
-            // $request->session()->flush();
-
-            // Redirect to login page
-            return redirect()->route('login');
-        }
+        return view('components.pages.admin');
     }
+    
+    public function login(Request $request): RedirectResponse
+    {
+        if (!$request->isMethod('post')) {
+            abort(404, 'Page not found');
+        }
+
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $email = trim($validated['email']);
+        $password = trim($validated['password']);
+
+        $user = $this->userAuthModel->login($email, $password);
+
+        if (!$user) {
+            return back()
+                ->withErrors(['email' => 'Incorrect email or password'])
+                ->withInput();
+        }
+
+        $userData = $this->userModel->getUser($user->firebaseUserId());
+
+        if (!$userData) {
+            return back()
+                ->withErrors(['email' => 'Invalid credentials or user not found.'])
+                ->withInput();
+        }
+
+        $this->storeUserSession($userData, $user->firebaseUserId());
+
+        return redirect()->intended('dashboard');
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+    }
+
+    protected function storeUserSession(array $userData, string $firebaseUserId): void
+    {
+        session([
+            'vendor_name' => $userData['vendor_name'],
+            'food_stall' => $userData['food_stall'],
+            'role' => $userData['role'],
+            'email' => $userData['email'],
+            'created_at' => $userData['created_at'],
+            'user_uid' => $firebaseUserId,
+        ]);
+    }
+}
