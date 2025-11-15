@@ -2,9 +2,9 @@
     namespace App\Http\Controllers;
 
     class AdminDashboard extends Controller {
+
+
         public function showAdminDashboard() {
-
-
              $weeklySales = [
                 ['day' => 'Mon', 'value' => 60, 'revenue' => 1200],
                 ['day' => 'Tue', 'value' => 45, 'revenue' => 900],
