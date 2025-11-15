@@ -7,6 +7,7 @@
                 <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Email</th>
                 <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Role</th>
                 <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Food Stall</th>
+                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Joined</th>
                 <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Actions</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $user['food_stall'] }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $user['created_at'] }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center space-x-3">
                             <button class="p-2 rounded-lg hover:bg-teal-100 text-teal-600 hover:text-teal-700 transition-colors" title="Edit">
