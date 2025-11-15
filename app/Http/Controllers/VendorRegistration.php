@@ -48,7 +48,7 @@ class VendorRegistration extends Controller
                     // Check if the email already exists in Firebase Authentication
                     $existingUser = $this->userModel->getAuth()->getUserByEmail($email);
                     if ($existingUser) {
-                        return back()->withErrors('The email entered was already exists.');
+                        return back()->withErrors('The email entered was already exists.')->withInput();
                     }
                 } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
                     // Email does not exist in Firebase, something else caused null

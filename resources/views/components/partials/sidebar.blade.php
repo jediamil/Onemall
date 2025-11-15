@@ -20,12 +20,15 @@
         <span class="md:block">Dashboard</span>
     </a>
 
+    @if (session('role') === 'Admin') 
     <a href="/account-management" 
         class="flex items-center px-4 py-3 rounded-l-3xl transition-all duration-200
         {{ Request::is('account-management') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
         <span class="material-symbols-outlined mr-3">account_circle</span>
         <span class="md:block">Account Management</span>
     </a>
+        
+    
 
     <a href="/vendor-management" 
         class="flex items-center px-4 py-3 rounded-l-3xl transition-all duration-200
@@ -40,7 +43,7 @@
         <span class="material-symbols-outlined mr-3">settings</span>
         <span class="md:block">Settings</span>
     </a>
-
+    @endif
     <form action="{{ route('logout') }}" method="POST" class="inline">
         @csrf
         <button type="submit" class="cursor-pointer w-full text-teal-700 hover:bg-cyan-200 rounded-l-3xl flex items-center px-4 py-3 transition-all duration-200">
