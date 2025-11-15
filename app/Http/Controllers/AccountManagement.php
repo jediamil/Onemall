@@ -12,10 +12,4 @@
             $users = $this->userModel->getAllUser();
             return view('components.pages.account-management', compact('users'));
         }
-
-        public function jedidiah() {
-            // for testing
-
-            // testtttt
-        }
     }
