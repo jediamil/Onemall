@@ -27,6 +27,14 @@
             }
         }
 
+        public function changePassword($id, $newPassword) {
+            try {
+                $password = $this->getAuth()->changeUserPassword($id, $newPassword);
+            } catch (\Kreaite|Firebase\Exception\AuthException $e) {
+                return null;
+            }
+        }
+
         // public function verifyIdToken(string $idToken)
         // {
         // try {

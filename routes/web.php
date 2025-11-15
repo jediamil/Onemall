@@ -24,6 +24,9 @@ Route::post('/vendor-management/registration', [VendorRegistration::class, 'vend
 
 Route::middleware(['role:Admin'])->group(function () {
     Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');
+    Route::get('/account-management/users/{uid}/edit', [AccountManagement::class, 'userEdit'])->name('user.edit');
+    Route::put('/account-management/users/{uid}/update', [AccountManagement::class, 'userUpdate'])->name('user.update');
+    Route::delete('/account-management/user/{uid}/delete', [AccountManagement::class, 'userDelete'])->name('user.delete');
     Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
 });
 
