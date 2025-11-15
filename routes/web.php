@@ -30,9 +30,9 @@ Route::middleware(['role:Admin'])->group(function () {
 // Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
-
-Route::middleware(['role:Vendor'])->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware(['logged_in']);
+    
+Route::middleware(['role:Vendor'])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
 });
 
