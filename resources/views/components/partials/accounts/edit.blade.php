@@ -16,15 +16,14 @@
         
         @if ($errors->any())
             <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-3">
-                <div class="flex items-center mb-2">
+                <div class="flex items-center gap-2">
                     <span class="material-symbols-outlined mr-2">error</span>
-                    <span class="font-medium">Please fix the following errors:</span>
+                    <div>
+                        @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
                 </div>
-                <ul class="list-disc list-inside text-sm space-y-1">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
             </div>
         @endif
 
