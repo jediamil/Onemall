@@ -1,7 +1,7 @@
 <!-- Responsive Sidebar Navigation -->
-<nav class="bg-cyan-100 min-h-[90%] flex flex-col md:w-72 w-full transition-all duration-300 mt-0 ml-0 md:ml-4">
+<nav class="bg-cyan-100 flex flex-col w-full pt-6 md:pt-0 md:min-w-60 md:max-w-60 transition-all duration-300 mt-0 ml-0 md:ml-4">
   <!-- Header / Logo -->
-  <div class="flex items-center justify-between px-6 md:p-0 border-b border-cyan-200">
+  <div class="flex items-center justify-between px-6 md:p-0 border-b-0 md:border-b border-cyan-200">
     <div class="flex justify-start md:justify-center w-full mr-5">
         <img src="{{ asset('images/ONEMALLLOGOFORLIGHTBG.png') }}" alt="ONEMALL" class=" w-25 md:w-40">
     </div>
