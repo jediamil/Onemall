@@ -34,7 +34,7 @@
                     <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{{ $user['vendor_name'] }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $user['email'] }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
+                        <span  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
                             {{ $user['role'] }}
                         </span>
                     </td>
