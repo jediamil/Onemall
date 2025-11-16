@@ -1,5 +1,5 @@
 <div class="w-full flex flex-col gap-4">
-    <div class="w-full flex flex-col md:flex-row gap-6">
+    <div class="w-full flex flex-col lg:flex-row items-center gap-6">
         <x-partials.settings.card-template 
             title="Rewards System Settings" 
             details="Setup points levels & rewards." 
@@ -13,7 +13,7 @@
         />
     </div>
 
-    <div class="w-full flex flex-col md:flex-row gap-6">
+    <div class="w-full flex flex-col lg:flex-row items-center gap-6">
         <x-partials.settings.card-template 
             title="System Maintenance" 
             details="Toggle system maintenance mode & updates." 

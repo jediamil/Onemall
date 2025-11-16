@@ -1,6 +1,7 @@
 @props(['sales', 'details', 'icon'])
 
-<div class="flex flex-1 flex-col p-8 bg-cyan-100 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
+<div class="flex  flex-1 flex-col p-8 bg-linear-to-b from-cyan-100 to-cyan-50 hover:from-cyan-200 hover:to-cyan-100 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 hover:scale-102 ">
+
 
     <div class="flex justify-between items-start mb-4">
         <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ $sales }}</div>

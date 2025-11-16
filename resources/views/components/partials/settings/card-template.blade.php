@@ -1,5 +1,5 @@
 @props(['title', 'details', 'link'])
-        <a href="{{$link}}" class="bg-gray-100  w-full max-w-lg rounded-xl border-2 border-teal-600/60">
+        <a href="{{$link}}" class="bg-gray-100 w-full lg:max-w-lg rounded-xl border-2 border-teal-600/60">
             <div class="group flex justify-between items-center bg-transparent hover:bg-teal-600/40 transition rounded-lg cursor-pointer">
                 <!-- Left side -->
                 <div class="flex flex-col p-4">

@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row gap-3">
+<div class="flex flex-col lg:flex-row gap-3">
     <x-partials.dashboard.card-template 
         sales="Total of Sales"
         details="9999999"
@@ -22,7 +22,7 @@
 
 
 
-<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="bg-linear-to-b from-cyan-100 to-cyan-50 rounded-xl shadow-sm p-6">
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-lg font-semibold text-gray-900">Sales Overview</h3>
         <div class="flex items-center space-x-2">
@@ -46,7 +46,7 @@
             
             <div class="flex flex-col items-center flex-1 group relative">
                 <!-- Bar with improved gradient and peak highlighting -->
-                <div class="w-10/12 bg-gradient-to-t {{ $isPeak ? 'from-teal-600 to-teal-400' : 'from-teal-500 to-teal-300' }} rounded-t-lg hover:from-teal-700 hover:to-teal-500 transition-all duration-300 ease-out hover:scale-105 relative"
+                <div class="w-10/12 bg-linear-to-t {{ $isPeak ? 'from-teal-600 to-teal-400' : 'from-teal-500 to-teal-300' }} rounded-t-lg hover:from-teal-700 hover:to-teal-500 transition-all duration-300 ease-out hover:scale-105 relative"
                      style="height: {{ $barHeight }}px">
                      
                     <!-- Animated tooltip -->
@@ -78,10 +78,6 @@
             <div class="flex items-center space-x-1">
                 <div class="w-3 h-3 bg-teal-500 rounded-full"></div>
                 <span class="text-sm text-gray-600">Units Sold</span>
-            </div>
-            <div class="flex items-center space-x-1">
-                <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span class="text-sm text-gray-600">Revenue</span>
             </div>
         </div>
         
