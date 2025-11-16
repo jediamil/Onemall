@@ -1,5 +1,5 @@
 <div class="w-full flex justify-center">
-    <img src="{{ asset('images/ONEMALLLOGOFORLIGHTBG.png') }}" alt="ONEMALL" class="w-90 p-8">
+    <img src="{{ asset('images/ONEMALLLOGOFORLIGHTBG.png') }}" alt="ONEMALL" class="w-100 p-8">
 </div>
 
 <div class="w-full flex flex-col items-center p-10">
