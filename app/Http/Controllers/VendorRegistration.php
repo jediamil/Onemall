@@ -79,6 +79,7 @@ class VendorRegistration extends Controller
                     ->with('success', 'Vendor created successfully!');
             }
 
+            $this->userAuthModel->deleteUsers($data['firebase_uid']);
             return back()->withErrors(['error' => 'Failed to create vendor record.']);
         }
 }

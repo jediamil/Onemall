@@ -13,16 +13,16 @@
 
   <!-- Links -->
   <div id="menu" class="flex-col space-y-2 mt-4 hidden md:flex">
-    <a href="/dashboard" 
+    <a href="{{ route('admin.userprofile') }}" 
         class="flex items-center px-4 py-3 rounded-l-3xl transition-all duration-200
-        {{ Request::is('#') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
+        {{ Route::is('admin.userprofile') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
         <span class="material-symbols-outlined mr-3">account_circle</span>
         <span class="md:block">Profile</span>
     </a>
 
     <a href="/dashboard" 
         class="flex items-center px-4 py-3 rounded-l-3xl transition-all duration-200
-        {{ Request::is('dashboard') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
+        {{ Route::is('admin.dashboard') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
         <span class="material-symbols-outlined mr-3">dashboard</span>
         <span class="md:block">Dashboard</span>
     </a>
@@ -31,7 +31,7 @@
     @if (session('role') === 'Admin') 
     <a href="/account-management" 
         class="flex items-center px-4 py-3 rounded-l-3xl transition-all duration-200
-        {{ Request::is('account-management') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
+        {{ Route::is('admin.account') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
         <span class="material-symbols-outlined mr-3">manage_accounts</span>
         <span class="md:block">Account Management</span>
     </a>
@@ -40,7 +40,7 @@
 
     <a href="/vendor-management" 
         class="flex items-center px-4 py-3 rounded-l-3xl transition-all duration-200
-        {{ Request::is('vendor-management') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
+        {{ Route::is('admin.vendorManagement') ? 'bg-cyan-200 text-teal-900 font-medium' : 'text-teal-700 hover:bg-cyan-200' }}">
         <span class="material-symbols-outlined mr-3">key_vertical</span>
         <span class="md:block">Vendor Management</span>
     </a>

@@ -5,39 +5,34 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\VendorRegistration;
 use App\Http\Controllers\AccountManagement;
+use App\Http\Controllers\UserProfile;
 use App\Models\FirebaseModel;
 
 
-
-
-// Handle login submission
-Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
-
-// Handle logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// // Handle login submission
-// Route::match(['get', 'post'], '/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('register.submit');
-
-Route::post('/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('vendor.register.submit');
-
-
+// Protected routes by Role Based Access Control = ADMIN
 Route::middleware(['role:Admin'])->group(function () {
     Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');
     Route::get('/account-management/users/{uid}/edit', [AccountManagement::class, 'userEdit'])->name('user.edit');
     Route::put('/account-management/users/{uid}/update', [AccountManagement::class, 'userUpdate'])->name('user.update');
     Route::delete('/account-management/user/{uid}/delete', [AccountManagement::class, 'userDelete'])->name('user.delete');
     Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
+    Route::post('/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('vendor.register.submit');
 });
 
-// Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
+// Protected routes by Role Based Access Control = VENDOR
+Route::middleware(['role:Vendor'])->group(function () {
+    Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
+    Route::get('/dashboard/userprofile', [UserProfile::class, 'showUserProfile'])->name('admin.userprofile');
+});
 
+// Unprotected routes
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::match(['get', 'post'], '/logout', [LoginController::class, 'logout'])->name('logout');
+Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
+
+
     
-Route::middleware(['role:Vendor'])->group(function () {
-Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
-});
 
 
 

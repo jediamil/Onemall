@@ -2,6 +2,8 @@
 
     namespace App\Models;
     use Kreait\Firebase\Auth\SignIn\FailedToSignIn;
+    use Kreait\Firebase\Exception\Auth\UserNotFound;
+    use Kreait\Firebase\Exception\AuthException;
 
     class UserAuthModel extends FirebaseModel {
         public function login(string $email, string $password)
@@ -29,12 +31,20 @@
 
         public function changePassword($id, $newPassword) {
             try {
-                $password = $this->getAuth()->changeUserPassword($id, $newPassword);
+                $this->getAuth()->changeUserPassword($id, $newPassword);
             } catch (\Kreaite|Firebase\Exception\AuthException $e) {
                 return null;
             }
         }
 
+        
+        public function deleteUsers(string $uid) {
+            try {
+                $this->getAuth()->deleteUser($uid);
+            } catch (\Kreaite\Firebase\Exception\Auth\UserNotFound $e) {
+                return null;
+            }
+        }
         // public function verifyIdToken(string $idToken)
         // {
         // try {
