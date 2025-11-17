@@ -118,6 +118,69 @@ class UserModel extends FirebaseModel
         }
     }
 
+    public function getSalesData() {
+        try {
+            $result = [];
+
+            $docs = $this->getFirestore()
+            ->collection('weeklySalesData')
+            ->documents();
+
+            foreach ($docs as $doc) {
+                if ($doc->exists()) {
+                    $result[$doc->id()] = $doc->data();
+                }
+            }
+            return $result;
+        } catch (FirebaseException $e) {
+            \Log::error('Firebase Error fetching: ' . $e->getMessage());
+            return null;
+        } catch (Exception $e) {
+            \Log::error('Unexpected error fetching: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    public function getSalesDataById($documentId)
+    {
+        try {
+            $snapshot = $this->getFirestore()
+                ->collection('weeklySalesData')
+                ->document($documentId)
+                ->snapshot();
+
+            if ($snapshot->exists()) {
+                return $snapshot->data();
+                
+            }
+
+            return null;
+
+        } catch (FirebaseException $e) {
+            \Log::error('Firebase Error fetching: ' . $e->getMessage());
+            return null;
+        } catch (Exception $e) {
+            \Log::error('Unexpected error fetching: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+
+    public function updateWeeklySales($updateData, $documentId ) {
+        try {
+            $this->getFirestore()
+                ->collection('weeklySalesData')
+                ->document($documentId)
+                ->set($updateData, ['merge' => true]);
+        } catch (FirebaseException $e) {
+            \Log::error('Firebase Error fetching: ' . $e->getMessage());
+            return null;
+        } catch (Exception $e) {
+            \Log::error('Unexpected error fetching: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     /**
      * Update a user by document ID with validation
      */

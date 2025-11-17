@@ -5,7 +5,7 @@
                 <div class="w-full flex flex-col gap-4">
                     <div class="w-full flex gap-6">
                         <x-partials.settings.card-template 
-                            title="Rewards System Settings" 
+                            title="System Maintenance" 
                             details="Setup points levels & rewards." 
                             link="settings/system-maintenance"
                         />
