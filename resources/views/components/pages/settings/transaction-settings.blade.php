@@ -6,7 +6,7 @@
                     <div class="w-full flex gap-6">
                         <x-partials.settings.card-template 
                             title="Limit Transaction" 
-                            details="Setup points levels & rewards." 
+                            details="" 
                             link="settings/transaction"
                         />
                     </div>

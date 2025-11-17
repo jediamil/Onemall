@@ -6,7 +6,7 @@
                     <div class="w-full flex gap-6">
                         <x-partials.settings.card-template 
                             title="Backup & Restore" 
-                            details="Setup points levels & rewards." 
+                            details="" 
                             link="settings/backup"
                         />
                     </div>
