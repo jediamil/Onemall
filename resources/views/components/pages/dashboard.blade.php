@@ -6,6 +6,7 @@
                     :weeklySales="$weeklySales"
                     :totalRevenue="$totalRevenue"
                     :growthPercent="$growthPercent"
+                    :dashboardData="$dashboardData"
                 />
             </div>
         </div>  

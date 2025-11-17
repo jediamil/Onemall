@@ -95,6 +95,29 @@ class UserModel extends FirebaseModel
         }
     }
 
+    public function getDashboardData() {
+        try {
+            $result = [];
+
+            $docs = $this->getFirestore()
+            ->collection('dashboard-overview')
+            ->documents();
+
+            foreach ($docs as $doc) {
+                if ($doc->exists()) {
+                    $result[$doc->id()] = $doc->data();
+                }
+            }
+            return $result;
+        } catch (FirebaseException $e) {
+            \Log::error('Firebase Error fetching: ' . $e->getMessage());
+            return null;
+        } catch (Exception $e) {
+            \Log::error('Unexpected error fetching: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     /**
      * Update a user by document ID with validation
      */

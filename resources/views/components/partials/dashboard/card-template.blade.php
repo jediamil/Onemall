@@ -1,4 +1,4 @@
-@props(['sales', 'details', 'icon'])
+@props(['sales', 'details', 'icon', 'growthPercent'])
 
 <div class="flex  flex-1 flex-col p-8 bg-linear-to-b from-cyan-100 to-cyan-50 hover:from-cyan-200 hover:to-cyan-100 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 hover:scale-102 ">
 
@@ -15,7 +15,7 @@
     
     <div class="flex items-center text-xs sm:text-sm text-teal-600 font-medium mt-auto">
         <span class="material-symbols-outlined text-sm sm:text-base mr-1">trending_up</span>
-        +12.4% from last month
+        {{ $growthPercent >= 0 ? '+' : '' }}{{ $growthPercent }}%
     </div>
 </div>
 

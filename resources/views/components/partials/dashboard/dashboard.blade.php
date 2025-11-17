@@ -1,20 +1,23 @@
 <div class="flex flex-col lg:flex-row gap-3">
     <x-partials.dashboard.card-template 
-        sales="Total of Sales"
-        details="9999999"
+        sales="Total Sales"
+        :details="$dashboardData['totalSales']['amount']"
         icon="finance_mode"
+        :growthPercent="$dashboardData['totalSales']['amount']"
     />
 
     <x-partials.dashboard.card-template 
         sales="Total of QR CODE Purchases"
-        details="9999999"
+        :details="$dashboardData['totalQR']['amount']"
         icon="local_mall"
+        :growthPercent="$dashboardData['totalSales']['amount']"
     />
 
     <x-partials.dashboard.card-template 
         sales="Total of Redeem Points"
-        details="9999999"
+        :details="$dashboardData['totalRedeem']['amount']"
         icon="hand_package"
+        :growthPercent="$dashboardData['totalSales']['amount']"
     />
 </div>
 <br />
