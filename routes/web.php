@@ -7,6 +7,7 @@ use App\Http\Controllers\VendorRegistration;
 use App\Http\Controllers\AccountManagement;
 use App\Http\Controllers\UserProfile;
 use App\Models\FirebaseModel;
+use App\Http\Controllers\PermitController;
 
 
 // Protected routes by Role Based Access Control = ADMIN
@@ -32,7 +33,7 @@ Route::match(['get', 'post'], '/logout', [LoginController::class, 'logout'])->na
 Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
 
 
-    
+Route::post('/permits/upload', [PermitController::class, 'store'])->name('permits.store');
 
 
 

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>{{$title}}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="bg-cyan-100" style="font-family: 'Work Sans', sans-serif;">
 
