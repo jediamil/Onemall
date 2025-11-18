@@ -46,7 +46,7 @@
             $updateData = array_filter($data, fn($value) => $value !== null && $value !== '');
 
             if (!empty($data['password'])) {
-                $changePassword = $this->userAuthModel->changePassword($uid, $data['password']);
+                $this->userAuthModel->changePassword($uid, $data['password']);
             }
 
             unset($updateData['password']);
