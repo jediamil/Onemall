@@ -75,7 +75,7 @@ class VendorRegistration extends Controller
 
             if ($vendor) {
                 return redirect()
-                    ->route('admin.vendorManagement')
+                    ->route('admin.account')
                     ->with('success', 'Vendor created successfully!');
             }
 

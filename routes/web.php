@@ -17,7 +17,7 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');
     Route::get('/account-management/users/{uid}/edit', [AccountManagement::class, 'userEdit'])->name('user.edit');
     Route::put('/account-management/users/{uid}/update', [AccountManagement::class, 'userUpdate'])->name('user.update');
-    Route::delete('/account-management/user/{uid}/delete', [AccountManagement::class, 'userDelete'])->name('user.delete');
+    Route::delete('/account-management/users/{uid}/delete', [AccountManagement::class, 'userDelete'])->name('user.delete');
     Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
     Route::post('/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('vendor.register.submit');
 });
@@ -26,16 +26,16 @@ Route::middleware(['role:Admin'])->group(function () {
 Route::middleware(['role:Vendor'])->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'showAdminDashboard'])->name('admin.dashboard');
     Route::get('/dashboard/userprofile', [UserProfile::class, 'showUserProfile'])->name('admin.userprofile');
+    Route::post('/permits/upload', [PermitController::class, 'store'])->name('permits.store');
 });
 
 // Unprotected routes
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::match(['get', 'post'], '/logout', [LoginController::class, 'logout'])->name('logout');
-Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
+    Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::match(['get', 'post'], '/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::match(['get', 'post'], '/login/authentication', [LoginController::class, 'login'])->name('login.submit');
 
 
-Route::post('/permits/upload', [PermitController::class, 'store'])->name('permits.store');
 
 
 
@@ -95,30 +95,5 @@ Route::get('/test-firebase', function () {
 
     } catch (Exception $e) {
         return "❌ Connection error: " . $e->getMessage();
-    }
-});
-
-Route::get('/test-firebase-auth', function () {
-    try {
-        $firebase = new FirebaseModel();
-        $auth = $firebase->getAuth();
-
-        // Try creating a temporary user (or you can verify a dummy token)
-        $user = $auth->createUser([
-            'email' => 'testuser@example.com',
-            'password' => 'TestPassword123!',
-        ]);
-
-        // Optional: delete the test user to keep your Auth clean
-        $auth->deleteUser($user->uid);
-
-        return "✅ Successfully connected to Firebase Authentication! User UID: {$user->uid}";
-
-    } catch (\Kreait\Firebase\Exception\Auth\AuthException $e) {
-        return "❌ Auth connection failed: " . $e->getMessage();
-    } catch (\Kreait\Firebase\Exception\FirebaseException $e) {
-        return "❌ Firebase error: " . $e->getMessage();
-    } catch (\Exception $e) {
-        return "❌ General error: " . $e->getMessage();
     }
 });

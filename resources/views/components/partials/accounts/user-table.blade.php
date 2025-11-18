@@ -126,8 +126,8 @@
                                     <span class="material-symbols-outlined text-base">edit</span>
                                 </a>
                                 
-                                {{-- <!-- View Profile Button -->
-                                <button type="button" 
+                                <!-- View Profile Button -->
+                                {{-- <button type="button" 
                                     class="inline-flex items-center p-2 rounded-lg bg-white text-gray-600 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 transition-all duration-200 shadow-sm hover:shadow"
                                     title="View Profile">
                                     <span class="material-symbols-outlined text-base">visibility</span>

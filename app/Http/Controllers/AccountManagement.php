@@ -19,7 +19,7 @@
         }
 
         public function userDelete($uid) {
-            $this->userAuthModel->deleteUsers($uid);
+            $test = $this->userAuthModel->deleteUsers($uid);
             $this->userModel->deleteUser($uid);
             return redirect()->route('admin.account')->with('success', 'User deleted successfully.');
         }
