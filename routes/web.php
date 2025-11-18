@@ -10,6 +10,8 @@ use App\Models\FirebaseModel;
 use App\Http\Controllers\PermitController;
 
 
+
+
 // Protected routes by Role Based Access Control = ADMIN
 Route::middleware(['role:Admin'])->group(function () {
     Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');

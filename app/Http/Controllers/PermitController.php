@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use App\Models\UserModel;
 
 class PermitController extends Controller
 {
@@ -36,6 +37,11 @@ class PermitController extends Controller
                 'file_type' => $file->getClientOriginalExtension(),
             ];
         }
+        
+        $permitURL = ['permitURL' => $url];
+        $userID = session('user_uid'); 
+        $update = new UserModel();
+        $update->updateUser($userID, $permitURL);
 
         return response()->json([
             'success' => true,

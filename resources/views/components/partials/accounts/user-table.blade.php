@@ -23,80 +23,143 @@
     @endif
 
     <!-- Table -->
-    <table class="min-w-full bg-cyan-100 rounded-lg overflow-hidden border border-gray-200">
-        <thead class="bg-linear-to-br from-teal-400 to-teal-500 text-white shadow-sm">
-            <tr>
-                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Vendor Name</th>
-                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Email</th>
-                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Role</th>
-                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Food Stall</th>
-                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Joined</th>
-                <th class="px-6 py-4 text-left font-semibold text-sm uppercase tracking-wider">Actions</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100">
-            @forelse ($users as $uid => $user)
-                <tr class="hover:bg-cyan-200 transition-colors duration-200 ease-in-out group">
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center">
-                            <div class=" h-10 w-10">
-                                <img class="h-10 w-10 rounded-full" 
-                                     src="https://ui-avatars.com/api/?name={{ urlencode($user['vendor_name']) }}&background=0D9488&color=ffffff&size=40" 
-                                     alt="{{ $user['vendor_name'] }}">
-                            </div>
-                            <div class="ml-4">
-                                <div class="font-medium text-gray-900">{{ $user['vendor_name'] }}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $user['email'] }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
-                                    {{ $user['role'] === 'Admin' ? 'bg-purple-100 text-purple-800' : 
-                                       ($user['role'] === 'Vendor' ? 'bg-teal-100 text-teal-800' : 'bg-gray-100 text-gray-800') }}">
-                            {{ $user['role'] }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ $user['food_stall'] }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-500 text-sm">
-                        {{ \Carbon\Carbon::parse($user['created_at'])->format('M j, Y') }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <a href="{{ route('user.edit', $uid) }}" 
-                                class="p-2 rounded-lg hover:bg-teal-100 text-teal-600 hover:text-teal-700 transition-colors" 
-                                title="Edit User">
-                                <span class="material-symbols-outlined text-lg">edit</span>
-                            </a>
-                            <button type="button" 
-                                class="p-2 rounded-lg hover:bg-blue-100 text-blue-500 hover:text-blue-600 transition-colors"
-                                title="View Profile">
-                                <span class="material-symbols-outlined text-lg">visibility</span>
-                            </button>
-                            <form action="{{ route('user.delete', $uid) }}" method="POST" 
-                                  onsubmit="return confirm('Are you sure you want to delete {{ $user['vendor_name'] }}?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" 
-                                    class="p-2 rounded-lg hover:bg-red-100 text-red-500 hover:text-red-600 transition-colors" 
-                                    title="Delete User">
-                                    <span class="material-symbols-outlined text-lg">delete</span>
-                                </button>
-                            </form>
-                        </div> 
-                    </td>
-                </tr>
-            @empty
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-linear-to-r from-teal-400 to-teal-500">
                 <tr>
-                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                        <div class="flex flex-col items-center">
-                            <span class="material-symbols-outlined text-4xl text-gray-300 mb-2">group</span>
-                            <p class="text-lg font-medium text-gray-400">No users found</p>
-                            <p class="text-sm text-gray-400 mt-1">Users will appear here once they register</p>
-                        </div>
-                    </td>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Vendor</th>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Contact</th>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Role</th>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Food Stall</th>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Joined Date</th>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Permit</th>
+                    <th class="px-6 py-4 text-left font-semibold text-white text-sm uppercase tracking-wider">Actions</th>
                 </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="bg-cyan-100 divide-y divide-gray-100">
+                @forelse ($users as $uid => $user)
+                    <tr class="hover:bg-cyan-200 transition-all duration-200 ease-in-out group border-l-2 border-l-transparent hover:border-l-teal-400">
+                        <!-- Vendor Name with Avatar -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="h-10 w-10 relative">
+                                    <img class="h-10 w-10 rounded-full ring-2 ring-white shadow-sm" 
+                                        src="https://ui-avatars.com/api/?name={{ urlencode($user['vendor_name']) }}&background=0D9488&color=ffffff&size=40" 
+                                        alt="{{ $user['vendor_name'] }}">
+                                    <div class="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-white 
+                                        {{ $user['role'] === 'Admin' ? 'bg-purple-500' : 
+                                        ($user['role'] === 'Vendor' ? 'bg-teal-500' : 'bg-gray-400') }}">
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="font-semibold text-gray-900">{{ $user['vendor_name'] }}</div>
+                                    <div class="text-xs text-gray-500">ID: {{ substr($uid, 0, 8) }}...</div>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <!-- Email -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-gray-600">
+                                <span class="material-symbols-outlined text-gray-400 text-sm mr-2">mail</span>
+                                <span class="text-sm">{{ $user['email'] }}</span>
+                            </div>
+                        </td>
+                        
+                        <!-- Role Badge -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold
+                                        {{ $user['role'] === 'Admin' ? 'bg-purple-100 text-purple-800 ring-1 ring-purple-200' : 
+                                        ($user['role'] === 'Vendor' ? 'bg-teal-100 text-teal-800 ring-1 ring-teal-200' : 'bg-gray-100 text-gray-800 ring-1 ring-gray-200') }}">
+                                <span class="w-1.5 h-1.5 rounded-full mr-1.5
+                                    {{ $user['role'] === 'Admin' ? 'bg-purple-500' : 
+                                    ($user['role'] === 'Vendor' ? 'bg-teal-500' : 'bg-gray-500') }}">
+                                </span>
+                                {{ $user['role'] }}
+                            </span>
+                        </td>
+                        
+                        <!-- Food Stall -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-gray-600">
+                                <span class="material-symbols-outlined text-gray-400 text-sm mr-2">storefront</span>
+                                <span class="text-sm font-medium">{{ $user['food_stall'] }}</span>
+                            </div>
+                        </td>
+                        
+                        <!-- Joined Date -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">
+                                <div class="font-medium">{{ \Carbon\Carbon::parse($user['created_at'])->format('M j, Y') }}</div>
+                                <div class="text-xs text-gray-400">{{ \Carbon\Carbon::parse($user['created_at'])->diffForHumans() }}</div>
+                            </div>
+                        </td>
+                        
+                        <!-- Permit Download -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if(($user['permitURL'] ?? false) && Storage::disk('public')->exists('permits/' . basename($user['permitURL'])))
+                                <div class="flex flex-col space-y-1">
+                                    <a href="{{ $user['permitURL'] }}" download 
+                                    class="inline-flex items-center justify-center px-3 py-2 bg-linear-to-r from-teal-500 to-teal-600 text-white rounded-lg text-sm font-medium hover:from-teal-600 hover:to-teal-700 transition-all duration-200 shadow-sm hover:shadow-md">
+                                        <span class="material-symbols-outlined text-sm mr-1.5">download</span>
+                                        Download
+                                    </a>
+                                    <span class="text-xs text-gray-500 text-center truncate max-w-[120px] mx-auto">
+                                        {{ \Illuminate\Support\Str::limit(basename($user['permitURL']), 15) }}
+                                    </span>
+                                </div>
+                            @else
+                                <span class="inline-flex items-center px-3 py-2 bg-gray-100 text-gray-400 rounded-lg text-sm font-medium border border-gray-200">
+                                    <span class="material-symbols-outlined text-sm mr-1.5">file_upload_off</span>
+                                    No Permit
+                                </span>
+                            @endif
+                        </td>
+                        
+                        <!-- Actions -->
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center space-x-1 opacity-70 group-hover:opacity-100 transition-opacity duration-200">
+                                <!-- Edit Button -->
+                                <a href="{{ route('user.edit', $uid) }}" 
+                                    class="inline-flex items-center p-2 rounded-lg bg-white text-gray-600 hover:text-teal-600 hover:bg-teal-50 border border-gray-200 hover:border-teal-200 transition-all duration-200 shadow-sm hover:shadow"
+                                    title="Edit User">
+                                    <span class="material-symbols-outlined text-base">edit</span>
+                                </a>
+                                
+                                {{-- <!-- View Profile Button -->
+                                <button type="button" 
+                                    class="inline-flex items-center p-2 rounded-lg bg-white text-gray-600 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 transition-all duration-200 shadow-sm hover:shadow"
+                                    title="View Profile">
+                                    <span class="material-symbols-outlined text-base">visibility</span>
+                                </button> --}}
+                                
+                                <!-- Delete Button -->
+                                <form action="{{ route('user.delete', $uid) }}" method="POST" 
+                                    onsubmit="return confirm('Are you sure you want to delete {{ $user['vendor_name'] }}? This action cannot be undone.')"
+                                    class="inline-flex">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                        class="inline-flex items-center p-2 rounded-lg bg-white text-gray-600 hover:text-red-600 hover:bg-red-50 border border-gray-200 hover:border-red-200 transition-all duration-200 shadow-sm hover:shadow"
+                                        title="Delete User">
+                                        <span class="material-symbols-outlined text-base">delete</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center justify-center text-gray-400">
+                                <span class="material-symbols-outlined text-5xl mb-4">group_off</span>
+                                <p class="text-lg font-medium text-gray-500 mb-1">No users found</p>
+                                <p class="text-sm text-gray-400">Users will appear here once they register in the system</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
