@@ -125,6 +125,14 @@ class UserModel extends FirebaseModel
         return $result;
     }
 
+    public function taskDelete($id) {
+        $this->getFirestore()
+                ->collection('tasks')
+                ->document($id)
+                ->delete();   
+            return true;
+    }
+
     public function getDashboardData() {
         try {
             $result = [];

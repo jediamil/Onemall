@@ -39,4 +39,16 @@
 
             return view('components.pages.settings.rewards-settings', compact('tasks'));
         }
+
+        public function taskDelete($taskId)
+        {
+            $this->UserModel = new UserModel();
+            $delete = $this->UserModel->taskDelete($taskId);
+
+            if ($delete) {
+                return redirect()->back()->with('success', 'Task deleted successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to delete task.');
+            }
+        }
     }

@@ -19,6 +19,10 @@ use App\Http\Controllers\PermitController;
 
     Route::get('/settings/rewards/value', [Settings::class, 'taskGet'])->name('admin.taskGet');
 
+    Route::delete('/settings/rewards/task-delete/{taskId}', [Settings::class, 'taskDelete'])
+    ->name('admin.tasks.delete');
+
+
 // Protected routes by Role Based Access Control = ADMIN
 Route::middleware(['role:Admin'])->group(function () {
     Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');

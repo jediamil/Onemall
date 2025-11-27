@@ -3,22 +3,44 @@
         <div class="w-full bg-black/20 p-4 m-4 md:m-0 md:p-10 md:mr-10 rounded-3xl min-h-[84vh]">
             <x-partials.admin-header title="Rewards System Settings" />
                 <div class="w-full flex flex-col gap-4">
-<div class="min-h-screen bg-linear-to-b from-cyan-100 to-white p-6 rounded">
+<div class="min-h-screen bg-linear-to-br from-cyan-100 to-white p-6 rounded">
     <div class="max-w-7xl mx-auto">
         <!-- Header Section -->
+        @if(session('success'))
+                            <div class="mb-4 p-3 rounded bg-teal-100 text-teal-700 border border-teal-300">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="mb-4 p-3 rounded bg-red-100 text-red-700 border border-red-300">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                        {{-- Validation errors --}}
+                        @if ($errors->any())
+                            <div class="mb-4 p-3 rounded bg-red-100 text-red-700 border border-red-300">
+                                <ul class="list-disc ml-5">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
             <div class="mb-4 sm:mb-0">
                 <h1 class="text-3xl font-bold text-gray-900">Rewards System Settings</h1>
                 <p class="text-gray-600 mt-2">Manage your tasks efficiently</p>
             </div>
-            <button class="bg-linear-to-r from-teal-500 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold 
+            {{-- <button class="bg-linear-to-r from-teal-500 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold 
                           hover:from-teal-600 hover:to-cyan-700 transition-all duration-300 
                           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
                 Add New Task
-            </button>
+            </button> --}}
         </div>
 
         <!-- Tasks Grid -->
@@ -99,7 +121,7 @@
                     </div>
 
                     <!-- Action Button -->
-                    <form action="" method="POST">
+                    <form action="{{ route('admin.tasks.delete', $taskId) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
