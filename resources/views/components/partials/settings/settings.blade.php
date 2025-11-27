@@ -3,22 +3,9 @@
         <x-partials.settings.card-template 
             title="Rewards System Settings" 
             details="Setup points levels & rewards." 
-            link="settings/rewards"
+            link="/settings/rewards/value"
         />
 
-        <x-partials.settings.card-template 
-            title="Backup & Restore" 
-            details="Create backup restore-data." 
-            link="settings/backup"
-        />
-    </div>
-
-    <div class="w-full flex flex-col lg:flex-row items-center gap-6">
-        <x-partials.settings.card-template 
-            title="System Maintenance" 
-            details="Toggle system maintenance mode & updates." 
-            link="settings/system-maintenance"
-        />
 
         <x-partials.settings.card-template 
             title="Transaction Limits" 

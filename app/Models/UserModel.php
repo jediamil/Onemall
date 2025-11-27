@@ -110,6 +110,20 @@ class UserModel extends FirebaseModel
                 ->document('dailyLimit')
                 ->set($data, ['merge' => true]);
     }
+    
+    public function taskSettings() {
+        $documents = $this->getFirestore()
+                ->collection('tasks')
+                ->documents();
+                
+            $result = [];
+            foreach ($documents as $doc) {
+                if ($doc->exists()) {
+                    $result[$doc->id()] = $doc->data();
+                }
+            }
+        return $result;
+    }
 
     public function getDashboardData() {
         try {

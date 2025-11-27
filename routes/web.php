@@ -17,6 +17,8 @@ use App\Http\Controllers\PermitController;
     Route::get('/settings/transaction/value', [Settings::class, 'TransLimit'])->name('admin.TransLimit');
     Route::post('/settings/transaction/update', [Settings::class, 'updateTransLimit'])->name('admin.updateTransLimit');
 
+    Route::get('/settings/rewards/value', [Settings::class, 'taskGet'])->name('admin.taskGet');
+
 // Protected routes by Role Based Access Control = ADMIN
 Route::middleware(['role:Admin'])->group(function () {
     Route::get('/account-management', [AccountManagement::class, 'showAccountManagement'])->name('admin.account');
@@ -42,32 +44,8 @@ Route::middleware(['role:Vendor'])->group(function () {
 
 
 
-
-
-
-
-
-
-
-
 Route::get('settings', function () {
     return view('components.pages.settings.settings');
-});
-
-Route::get('settings/system-maintenance', function () {
-    return view('components.pages.settings.system-settings');
-});
-
-Route::get('settings/backup', function () {
-    return view('components.pages.settings.backup-settings');
-});
-
-Route::get('settings/transaction', function () {
-    return view('components.pages.settings.transaction-settings');
-});
-
-Route::get('settings/rewards', function () {
-    return view('components.pages.settings.rewards-settings');
 });
 
 

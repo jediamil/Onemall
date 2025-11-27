@@ -32,4 +32,11 @@
                     ->with('error', 'Failed to update limit. Please try again.');
             }
         }
+
+        public function taskGet() {
+            $this->UserModel = new UserModel();
+            $tasks = $this->UserModel->taskSettings();
+
+            return view('components.pages.settings.rewards-settings', compact('tasks'));
+        }
     }
