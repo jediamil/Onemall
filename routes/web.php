@@ -6,12 +6,16 @@ use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\VendorRegistration;
 use App\Http\Controllers\AccountManagement;
 use App\Http\Controllers\UserProfile;
+use App\Http\Controllers\Settings;
 use App\Models\FirebaseModel;
 use App\Http\Controllers\PermitController;
 
 // Temporary for development purposes
     Route::get('/vendor-management', [VendorRegistration::class, 'showVendorManagement'])->name('admin.vendorManagement');
     Route::post('/vendor-management/registration', [VendorRegistration::class, 'vendorCreate'])->name('vendor.register.submit');
+
+    Route::get('/settings/transaction/value', [Settings::class, 'TransLimit'])->name('admin.TransLimit');
+    Route::post('/settings/transaction/update', [Settings::class, 'updateTransLimit'])->name('admin.updateTransLimit');
 
 // Protected routes by Role Based Access Control = ADMIN
 Route::middleware(['role:Admin'])->group(function () {

@@ -95,6 +95,22 @@ class UserModel extends FirebaseModel
         }
     }
 
+    public function getTransLimit() {
+        $doc = $this->getFirestore()
+        ->collection('settings')
+        ->document('dailyLimit')
+        ->snapshot();
+
+        return $doc->exists() ? $doc->data() : null;
+    }
+
+    public function updateTransLimit($data) {
+        $this->getFirestore()
+                ->collection('settings')
+                ->document('dailyLimit')
+                ->set($data, ['merge' => true]);
+    }
+
     public function getDashboardData() {
         try {
             $result = [];
