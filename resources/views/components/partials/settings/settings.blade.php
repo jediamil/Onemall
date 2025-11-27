@@ -23,7 +23,7 @@
         <x-partials.settings.card-template 
             title="Transaction Limits" 
             details="Detine limits on user transaction." 
-            link="settings/transaction"
+            link="/settings/transaction/value"
         />
     </div>
 </div>
